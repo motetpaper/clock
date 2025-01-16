@@ -1,0 +1,57 @@
+# deploy.yaml
+
+name: deploy-motet-clock
+
+on: 
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest    
+
+    steps:
+        - name: checkout
+          uses: actions/checkout@v4
+          with:
+            path: gh-pages
+            
+        - name: get the latest pwa-motet-clock
+          run: |
+            pwd
+            tree
+            
+            git clone https://github.com/motetpaper/pwa-motet-clock
+            
+            pwd
+            tree
+            ls -ra
+        - name: copy web files
+          run: |
+            rm ./pwa-motet-clock/README.md
+            rm ./pwa-motet-clock/LICENSE*
+
+            pwd
+            tree
+            
+        - name: Upload static files as artifact
+          id: deployment
+          uses: actions/upload-pages-artifact@v3
+          with:
+            path: pwa-motet-clock/
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          folder: pwa-motet-clock/
