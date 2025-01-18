@@ -18,8 +18,9 @@ jobs:
           run: |
             pwd
             tree
-            
-            git clone https://github.com/motetpaper/pwa-motet-clock
+
+            ## only needs to clone the HEAD
+            git clone --depth 1 https://github.com/motetpaper/pwa-motet-clock
             
             pwd
             tree
