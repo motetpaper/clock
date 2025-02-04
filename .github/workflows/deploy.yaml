@@ -1,6 +1,6 @@
 # deploy.yaml
 
-name: deploy-motet-clock
+name: pwa-deploy
 
 on: 
   workflow_dispatch:
