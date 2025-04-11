@@ -1,0 +1,53 @@
+/**
+ * style.css
+ * git    : https://github.com/motetpaper/clock
+ * lic    : MIT
+**/
+
+body {
+	background-color: white;
+	font-family: monospace;
+	margin-top: 100px;
+	font-size: 50pt;
+	color: black;
+}
+
+a {
+	color: white;
+}
+
+a:hover {
+	color: yellow;
+}
+
+/*
+  using code from here: https://stackoverflow.com/a/5207792
+  `user-select: none` makes the clock face unselectable
+*/
+center {
+	user-select: none;
+  opacity: 0;
+}
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	font-size: 10pt;
+	margin-right: 16px;
+	margin-bottom: 16px;
+}
+
+#settings {
+	width: 500px;
+	height: 300px;
+	font-size: 12pt;
+	text-align: auto;
+}
+
+@media (orientation: portrait) and (max-width: 500px) {
+  body {
+		  font-size: 32pt:
+  }
+}
+
