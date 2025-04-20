@@ -67,3 +67,15 @@ function updateClock(arr) {
 function showDots(show) {
   dotdot.forEach((a)=>a.style.opacity=show+0);
 }
+
+
+// stand aside battery methods
+const fadeStyle = 'stand-aside-fade-in-text';
+navigator.getBattery().then((battery) => {
+  battery.addEventListener('chargingchange', () => {
+    const msg = battery.charging ? 'plugged in' : 'unplugged'
+    console.log(msg);
+    document.querySelector('center')
+      .classList = battery.charging ? fadeStyle : '';
+  });
+});
