@@ -39,15 +39,27 @@ center {
 }
 
 #settings {
-	width: 500px;
-	height: 300px;
-	font-size: 12pt;
-	text-align: auto;
+width: 500px;
+height: 300px;
+font-size: 12pt;
+text-align: auto;
+}
+
+/** stand aside fadein **/
+.stand-aside-fade-in-text {
+  animation: fadeIn 3s;
+  color: rgba(33, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+  0% { opacity: 1; color: white; }
+  50% { opacity: 0; color: rgba(33, 0, 0, 0.3); }
+  100% { opacity: 1; color: rgba(33, 0, 0, 0.3); }
 }
 
 @media (orientation: portrait) and (max-width: 500px) {
   body {
-		  font-size: 32pt:
+    font-size: 32pt:
   }
 }
 
