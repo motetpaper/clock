@@ -1,5 +1,5 @@
 // sw.js (service worker)
-const cacheName = 'clock-1-2';
+const cacheName = 'clock-2-1';
 const swfiles = [
   './',
   './index.html',
@@ -80,6 +80,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheVersion) => {
           if (!cacheAllowlist.includes(cacheVersion)) {
+            console.log(`[sw.js] Based on cache version ${cacheName} ... `);
             console.log(`[sw.js] Updating cache to ${cacheVersion} ... `);            
             return caches.delete(cacheVersion);
           }

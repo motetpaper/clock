@@ -28,19 +28,25 @@ const panel = document.querySelector('center');
 // checkboxes in the settings popover
 const checks = document.querySelectorAll('input[type=checkbox]');
 
-// preferences
+// preferences area
+//
 const prefs = {};
-prefs.blink = !!localStorage['prefs-dotdot-blink'];
-
+//prefs['prefs-dotdot-blink'] = localStorage['prefs-dotdot-blink'];
+//prefs['prefs-standaside-mode'] = !!localStorage['prefs-standaside-mode'];
+console.log(prefs);
 checks.forEach((a)=>{
-  a.checked = !!localStorage[a.id];
+
+  console.log(a.id, localStorage[a.id])
+  a.checked = isSettingEnabled(a.id);
   a.onchange = (evt)=>{
-      localStorage[evt.target.id] = !!evt.target.checked;
-      prefs.blink = !!evt.target.checked;
+      localStorage[evt.target.id] = evt.target.checked;
       showDots(true);
-      console.log('prefs-dotdot-blink: ', !!evt.target.checked);
+      console.log(evt.target.id, evt.target.checked);
   }
 });
+
+// clock area
+//
 
 // tick, tock
 setInterval(function() {
@@ -48,10 +54,9 @@ setInterval(function() {
   const s = dt.toLocaleTimeString('en-GB');  // 00:00:00
   const [hh, mm, ss] = s.split(':');
 
-  if(prefs.blink) {
+  if(isSettingEnabled('prefs-dotdot-blink')) {
    (+ss % 2) ? showDots(true) : showDots(false);
   }
-
 
   updateClock([hh,mm,ss]);
 }, 500);
@@ -68,14 +73,30 @@ function showDots(show) {
   dotdot.forEach((a)=>a.style.opacity=show+0);
 }
 
+function isSettingEnabled(str) {
+  return localStorage[str] === 'true';
+}
 
-// stand aside battery methods
+// stand aside area
+//
+//
+
+function hasBatteryObjects() {
+  return !!navigator.getBattery;
+}
+
+// stand aside battery event listeners
+document.querySelector('center').classList = '';
 const fadeStyle = 'stand-aside-fade-in-text';
-navigator.getBattery().then((battery) => {
+navigator.getBattery && navigator.getBattery().then((battery) => {
   battery.addEventListener('chargingchange', () => {
+
     const msg = battery.charging ? 'plugged in' : 'unplugged'
     console.log(msg);
-    document.querySelector('center')
-      .classList = battery.charging ? fadeStyle : '';
+
+    if(isSettingEnabled('prefs-standaside-mode')) {
+      document.querySelector('center')
+        .classList = battery.charging ? fadeStyle : '';
+    }
   });
 });
