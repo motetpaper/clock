@@ -86,10 +86,14 @@ section	 {
  *
  * Based on code found here:
  * https://stackoverflow.com/a/25975282
+ *
+ * Test page:
+ * https://browserstrangeness.github.io/css_hacks.html
+ *
  * **/
-@media not all and (min-resolution:.001dpcm) { @media {
+@supports (-webkit-hyphens:none){
   #prefdiv-standaside {
 		display: none;
 		visibility: hidden;
   }
-}}
+}
